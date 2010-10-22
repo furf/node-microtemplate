@@ -81,4 +81,4 @@ When the script loads (use &lt;script&gt;, $.getScript, or Sexy *wink*), you can
 	    {name:'furf'}
 	]));
 
-  	// outputs --> Hello &lt;em&gt;dave&lt;/em&gt;! Hello &lt;em&gt;furf&lt;/em&gt;! Goodbye, &lt;strong&gt;dave&lt;/strong&gt;! Goodbye, &lt;strong&gt;furf&lt;/strong&gt;! 
+  	// outputs --> Hello <em>dave</em>! Hello <em>furf</em>! Goodbye, <strong>dave</strong>! Goodbye, <strong>furf</strong>! 
