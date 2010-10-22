@@ -12,38 +12,40 @@ http.createServer(function (req, res) {
   var query     = url.parse(req.url).query,
       params    = qs.parse(query),
       varName,
-      fileName,
-      filePath,
       fileCount = 0,
       out = ['(function(window){'],
       source;
 
-  for (varName in params) {
+  function loadTemplate (varName, fileName) {
 
-    (function (varName, fileName) {
+    var filePath = templateDir + fileName;
+    fileCount++;
 
-      filePath = templateDir + fileName;
-      fileCount++;
+    fs.readFile(filePath, 'utf-8', function (err, tpl) {
 
-      fs.readFile(filePath, 'utf-8', function (err, tpl) {
-        if (err) throw err;
+      if (err) {
+        throw err;
+      }
 
-        fileCount--;
+      fileCount--;
 
-        out.push(template.process(varName, tpl));
+      out.push(template.process(varName, tpl));
 
-        if (!fileCount) {
-          out.push('})(this);');
-          source = out.join('');
-          yui.compile(source, [], function (result) {
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end(result);
-          });
-        }
+      if (!fileCount) {
+        out.push('})(this);');
+        source = out.join('');
+        yui.compile(source, [], function (result) {
+          res.writeHead(200, {'Content-Type': 'text/javascript'});
+          res.end(result);
+        });
+      }
 
-      });
+    });
 
-    })(varName, params[varName]);
   }
 
-}).listen(8081);
+  for (varName in params) {
+    loadTemplate(varName, params[varName]);
+  }
+
+}).listen(8000);
