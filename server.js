@@ -17,9 +17,9 @@ http.createServer(function (req, res) {
       fileCount = 0,
       out = ['(function(window){'],
       source;
-  
+
   for (varName in params) {
-    
+
     (function (varName, fileName) {
 
       filePath = templateDir + fileName;
@@ -42,8 +42,8 @@ http.createServer(function (req, res) {
         }
 
       });
-      
+
     })(varName, params[varName]);
   }
-  
+
 }).listen(8081);
