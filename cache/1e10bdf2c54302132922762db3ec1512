@@ -1,1 +1,0 @@
-(function(a){a.bam=a.bam||{};a.bam.renderers=a.bam.renderers||{};a.bam.renderers.hello=(function(b){return function(c){return b.apply(c)}})(function(){var b=[];b.push("Hello <em>",this.name,"</em>!");return b.join("")})})(this);
