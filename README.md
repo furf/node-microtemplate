@@ -76,9 +76,24 @@ When the script loads (use &lt;script&gt;, $.getScript, or Sexy *wink*), you can
 
 **usage**
 
-	console.log(bam.renderers.convo([
-	    {name:'dave'},
-	    {name:'furf'}
-	]));
+    jQuery.ajax({
+      dataType: 'script',
+      url: 'http://localhost:8000/',
+      data: {
+        'bam.renderers.hello':   'hello.tpl',
+        'bam.renderers.goodbye': 'goodbye.tpl',
+        'bam.renderers.convo':   'convo.tpl'
+      },
+      success: function () {
+
+        jQuery('body')
+			.append(bam.renderers.hello({ name: 'dave' }))
+			.append(bam.renderers.goodbye({ name: 'furf' }))
+			.append(bam.renderers.convo([
+	          { name: 'dave' },
+	          { name: 'furf' }
+	        ]));
+      }
+    });
 
   	// outputs --> Hello <em>dave</em>! Hello <em>furf</em>! Goodbye, <strong>dave</strong>! Goodbye, <strong>furf</strong>! 
