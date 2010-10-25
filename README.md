@@ -18,7 +18,6 @@ Create some templates and store them on the server...
     	{%= bam.renderers.goodbye(this[i]) %}
   	{% } %}
 
-
 Request the templates from the server, passing the desired JS variable name as key and path to the template as the value...
 In this example, I'm using namespaced variable names, but globals work as well. The entire file is wrapped in a single closure, passing in this (window in the browser), to allow for better compression.
 
@@ -29,6 +28,7 @@ In this example, I'm using namespaced variable names, but globals work as well. 
 **(beautified)**
 
 	(function (a) {
+
 	    a.bam = a.bam || {};
 	    a.bam.renderers = a.bam.renderers || {};
 	    a.bam.renderers.hello = (function (b) {
@@ -40,6 +40,7 @@ In this example, I'm using namespaced variable names, but globals work as well. 
 	        b.push("Hello <em>", this.name, "</em>!");
 	        return b.join("")
 	    });
+
 	    a.bam = a.bam || {};
 	    a.bam.renderers = a.bam.renderers || {};
 	    a.bam.renderers.goodbye = (function (b) {
@@ -51,6 +52,7 @@ In this example, I'm using namespaced variable names, but globals work as well. 
 	        b.push("Goodbye, <strong>", this.name, "</strong>!");
 	        return b.join("")
 	    });
+
 	    a.bam = a.bam || {};
 	    a.bam.renderers = a.bam.renderers || {};
 	    a.bam.renderers.convo = (function (b) {
@@ -69,8 +71,8 @@ In this example, I'm using namespaced variable names, but globals work as well. 
 	        b.push(" ");
 	        return b.join("")
 	    })
-	})(this);
 
+	})(this);
 
 When the script loads (use &lt;script&gt;, $.getScript, or Sexy *wink*), you can render the template by calling the passed function name with the object to render...
 
@@ -96,4 +98,4 @@ When the script loads (use &lt;script&gt;, $.getScript, or Sexy *wink*), you can
       }
     });
 
-  	// outputs --> Hello <em>dave</em>! Hello <em>furf</em>! Goodbye, <strong>dave</strong>! Goodbye, <strong>furf</strong>! 
+  	// outputs --> Hello <em>dave</em>! Hello <em>furf</em>! Goodbye, <strong>dave</strong>! Goodbye, <strong>furf</strong>!
