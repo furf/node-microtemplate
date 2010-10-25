@@ -12,8 +12,7 @@ var sys                 = require('sys'),
     rendererDir         = __dirname + '/data/renderers';
 
 
-
-function map (obj, callback) {
+Object.map = function (obj, callback) {
   var key, ret, arr = [];
   for (key in obj) {
     ret = callback.call(obj, key, obj[key]);
@@ -22,23 +21,26 @@ function map (obj, callback) {
     }
   }
   return arr;
-}
+};
 
 http.createServer(function (req, res) {
 
   var s = new Date();
   
-  var params = qs.parse(url.parse(req.url).query),
-
-      templates = map(params, function (method, templateName) {
-        return new MicroTemplate(method, templateName, templateDir, rendererDir);
-      }),
-
-      templateBundle = new MicroTemplateBundle(templates, rendererDir);
+  var query  = url.parse(req.url).query,
+      params = qs.parse(query),
+      templates,
+      bundle;
   
-  templateBundle.compile(function (err, compiledBundle) {
+  templates = Object.map(params, function (method, templateName) {
+    return new MicroTemplate(method, templateName, templateDir, rendererDir);
+  });
+  
+  bundle = new MicroTemplateBundle(templates, rendererDir);
+  
+  bundle.compile(function (err, compiledBundle) {
     var comment = '/* Response time: ' + (new Date() - s) + 'ms */\n';
-    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.writeHead(200, {'Content-Type': 'text/javascript'});
     res.end(comment + compiledBundle);    
   });
 
