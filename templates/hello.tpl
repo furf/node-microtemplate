@@ -1,1 +1,1 @@
-Hello <em>{%= this.name %}</em>!
+Hello <em><%= this.name %></em>!

@@ -1,1 +1,1 @@
-Goodbye, <strong>{%= this.name %}</strong>!
+Goodbye, <strong><%= this.name %></strong>!
