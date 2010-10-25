@@ -1,15 +1,14 @@
 require.paths.push(__dirname + '/lib');
 
-var sys             = require('sys'),
-    http            = require('http'),
-    url             = require('url'),
-    qs              = require('querystring'),
-
-    Template        = require('template'),
-    TemplateBundle  = require('template/bundle'),
+var sys                 = require('sys'),
+    http                = require('http'),
+    url                 = require('url'),
+    qs                  = require('querystring'),
+    MicroTemplate       = require('template'),
+    MicroTemplateBundle = require('template/bundle'),
     
-    templateDir = __dirname + '/templates';
-    cacheDir    = __dirname + '/cache';
+    templateDir         = __dirname + '/data/templates';
+    rendererDir         = __dirname + '/data/renderers';
 
 
 
@@ -31,10 +30,10 @@ http.createServer(function (req, res) {
   var params = qs.parse(url.parse(req.url).query),
 
       templates = map(params, function (method, templateName) {
-        return new Template(method, templateName, templateDir, cacheDir);
+        return new MicroTemplate(method, templateName, templateDir, rendererDir);
       }),
 
-      templateBundle = new TemplateBundle(templates, cacheDir);
+      templateBundle = new MicroTemplateBundle(templates, rendererDir);
   
   templateBundle.compile(function (err, compiledBundle) {
     var comment = '/* Response time: ' + (new Date() - s) + 'ms */\n';
