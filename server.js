@@ -1,11 +1,12 @@
 require.paths.push(__dirname + '/lib');
+require.paths.push(__dirname + '/lib/vendor');
 
 var sys                 = require('sys'),
     http                = require('http'),
     url                 = require('url'),
     qs                  = require('querystring'),
-    MicroTemplate       = require('template'),
-    MicroTemplateBundle = require('template/bundle'),
+    MicroTemplate       = require('microtemplate/microtemplate'),
+    MicroTemplateBundle = require('microtemplate/microtemplatebundle'),
     
     templateDir         = __dirname + '/data/templates';
     rendererDir         = __dirname + '/data/renderers';
