@@ -27,7 +27,7 @@ Object.map = function (obj, callback) {
 
 http.createServer(function (req, res) {
 
-  var params = url.parse(qs.parse(query)).query,
+  var params = qs.parse(url.parse(req.url).query),
       templates,
       bundle;
 
