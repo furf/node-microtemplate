@@ -2,21 +2,21 @@ Create some templates and store them on the server...
 
 **hello.tpl**
 
-  	Hello <em>{%= this.name %}</em>!
+  	Hello <em><%= this.name %></em>!
 
 **goodbye.tpl**
 
-  	Goodbye, <strong>{%= this.name %}</strong>!
+  	Goodbye, <strong><%= this.name %></strong>!
 
 **convo.tpl**
 
-  	{% for (var i in this) { %}
-    	{%= bam.renderers.hello(this[i]) %}
-  	{% } %}
+  	<% for (var i in this) { %>
+    	<%= bam.renderers.hello(this[i]) %>
+  	<% } %>
 
-  	{% for (var i in this) { %}
-    	{%= bam.renderers.goodbye(this[i]) %}
-  	{% } %}
+  	<% for (var i in this) { %>
+    	<%= bam.renderers.goodbye(this[i]) %>
+  	<% } %>
 
 Request the templates from the server, passing the desired JS variable name as key and path to the template as the value...
 In this example, I'm using namespaced variable names, but globals work as well. The entire file is wrapped in a single closure, passing in this (window in the browser), to allow for better compression.
